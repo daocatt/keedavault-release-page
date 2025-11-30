@@ -1,11 +1,23 @@
 import { GoogleGenAI } from "@google/genai";
 import { Release, ChangeItem } from "../types";
 
-// Initialize the client
-// The API key is guaranteed to be in process.env.API_KEY as per the system instructions
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Check for API key presence to support optional AI features
+const apiKey = process.env.API_KEY;
+export const isAIEnabled = !!apiKey && apiKey !== 'undefined' && apiKey !== '';
+
+let ai: GoogleGenAI | null = null;
+
+if (isAIEnabled) {
+  try {
+    ai = new GoogleGenAI({ apiKey: apiKey as string });
+  } catch (error) {
+    console.warn("Failed to initialize Google GenAI client", error);
+  }
+}
 
 export const summarizeRelease = async (release: Release, audience: 'technical' | 'general'): Promise<string> => {
+  if (!ai) return "AI features are not enabled.";
+
   try {
     const modelId = 'gemini-2.5-flash';
     
@@ -45,6 +57,8 @@ export const summarizeRelease = async (release: Release, audience: 'technical' |
 
 
 export const chatWithRelease = async (release: Release, question: string): Promise<string> => {
+    if (!ai) return "AI features are not enabled.";
+
     try {
         const modelId = 'gemini-2.5-flash';
         
@@ -77,6 +91,8 @@ export const chatWithRelease = async (release: Release, question: string): Promi
 };
 
 export const generateDraftDescription = async (version: string, changes: ChangeItem[]): Promise<string> => {
+  if (!ai) return "";
+
   try {
       if (changes.length === 0) return "";
       
