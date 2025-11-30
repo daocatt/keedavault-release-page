@@ -271,20 +271,22 @@ export const ReleaseForm: React.FC<ReleaseFormProps> = ({ onSave, onCancel }) =>
           <div className="border-t border-slate-100 dark:border-slate-800 pt-6">
             <div className="flex items-center justify-between mb-2">
                 <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300">Release Summary</label>
-                <button 
-                    onClick={handleGenerateDraft}
-                    disabled={changes.length === 0 || isGenerating}
-                    className="flex items-center gap-1.5 text-xs font-semibold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-3 py-1.5 rounded-full hover:bg-purple-100 dark:hover:bg-purple-900/30 disabled:opacity-50 transition-colors"
-                >
-                    {isGenerating ? (
-                         <span className="animate-pulse">Generating...</span>
-                    ) : (
-                         <>
-                            <Sparkles size={14} />
-                            <span>Generate with AI</span>
-                         </>
-                    )}
-                </button>
+                {geminiService.isAIEnabled && (
+                    <button 
+                        onClick={handleGenerateDraft}
+                        disabled={changes.length === 0 || isGenerating}
+                        className="flex items-center gap-1.5 text-xs font-semibold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-3 py-1.5 rounded-full hover:bg-purple-100 dark:hover:bg-purple-900/30 disabled:opacity-50 transition-colors"
+                    >
+                        {isGenerating ? (
+                             <span className="animate-pulse">Generating...</span>
+                        ) : (
+                             <>
+                                <Sparkles size={14} />
+                                <span>Generate with AI</span>
+                             </>
+                        )}
+                    </button>
+                )}
             </div>
             <textarea 
                 value={description}
@@ -292,9 +294,11 @@ export const ReleaseForm: React.FC<ReleaseFormProps> = ({ onSave, onCancel }) =>
                 placeholder="Overview of what this release achieves..."
                 className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all min-h-[120px] placeholder:text-slate-400"
             />
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                Tip: Add your changes first, then click "Generate with AI" to get a drafted summary.
-            </p>
+            {geminiService.isAIEnabled && (
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                    Tip: Add your changes first, then click "Generate with AI" to get a drafted summary.
+                </p>
+            )}
           </div>
 
         </div>
