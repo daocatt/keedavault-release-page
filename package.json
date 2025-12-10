@@ -3,9 +3,10 @@
   "version": "2.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "node scripts/update-release-list.js && vite",
+    "build": "node scripts/update-release-list.js && vite build",
+    "preview": "vite preview",
+    "update-releases": "node scripts/update-release-list.js"
   },
   "dependencies": {
     "@google/genai": "^1.30.0",

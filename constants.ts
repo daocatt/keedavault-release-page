@@ -8,6 +8,7 @@ export const APP_CONFIG = {
   version: '2.0.0', // This can be updated manually or via build scripts
   description: 'A modern, secure, and open-source password manager designed for simplicity and privacy.',
   githubUrl: 'https://github.com/daocatt/keedavault',
+  releasesUrl: 'https://github.com/daocatt/keedavault/releases',
   features: [
     "Hybrid Storage. Architecture Local-First, Cloud-Ready. We believe in data sovereignty. Your password vault is stored locally by default, giving you complete ownership. ",
     "Fortified Security. Built on the Battle-Tested KeePass Standard. Don't compromise on security. We utilize the industry-standard KDBX 4.x format, protected by military-grade AES-256 and Argon2 encryption. Our Zero-Knowledge architecture means we never see your master password or your data.",
