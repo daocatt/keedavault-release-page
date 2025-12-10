@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { ReleaseCard } from './components/ReleaseCard';
 import { ReleaseForm } from './components/ReleaseForm';
 import { ChangeType, FilterState, Release } from './types';
-import { Search, Filter, Info, Layers, Loader2, Github, Moon, Sun } from 'lucide-react';
+import { Search, Filter, Info, Layers, Loader2, Github, Moon, Sun, Download } from 'lucide-react';
 import { loadStaticReleases } from './services/releaseLoader';
 import { APP_CONFIG } from './constants';
 
@@ -166,6 +166,17 @@ const App: React.FC = () => {
 
             <div className="w-px h-6 bg-slate-200 dark:bg-slate-700 hidden sm:block"></div>
             
+            <a 
+              href={APP_CONFIG.releasesUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg transition-all font-medium text-sm shadow-sm hover:shadow"
+              title="Download Latest Release"
+            >
+              <Download size={16} />
+              <span className="hidden sm:inline">Download</span>
+            </a>
+
             <button
                 onClick={toggleTheme}
                 className="p-2 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
